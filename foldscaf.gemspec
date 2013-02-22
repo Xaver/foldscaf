@@ -5,9 +5,9 @@ require "version"
 Gem::Specification.new do |s|
   s.name        = "foldscaf"
   s.version     = Foldscaf::VERSION
-  s.authors     = ["Nicanor Perera"]
-  s.email       = ["nicanorperera@gmail.com"]
-  s.homepage    = "http://github.com/nicanorperera/foldscaf"
+  s.authors     = ["Nicanor Perera", "Gustavo Molinari"]
+  s.email       = ["nicanorperera@gmail.com", "gustavo.molinari@xaver.com.ar"]
+  s.homepage    = "http://github.com/Xaver/foldscaf"
   s.summary     = %q{Generadores adaptados a las necesidades de Xaver}
   s.description = %q{Generadores adaptados a las necesidades de Xaver}
 
@@ -20,5 +20,9 @@ Gem::Specification.new do |s|
 
   # specify any dependencies here; for example:
   # s.add_development_dependency "rspec"
-  # s.add_runtime_dependency "rest-client"
+  s.add_runtime_dependency "sorcery"
+  s.add_runtime_dependency "simple_form"
+  s.add_runtime_dependency "friendly_id"
+  s.add_runtime_dependency "cancan"
+  s.add_runtime_dependency "dragonfly"
 end

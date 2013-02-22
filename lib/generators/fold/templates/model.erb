@@ -1,25 +1,59 @@
 # -*- encoding : utf-8 -*-
-class <%= @class %> < ActiveRecord::Base
-<%- if @con_slug -%>
-  extend FriendlyId
-  friendly_id :<%= @identificador %>
-<%- end -%>
-<%- atributos_con_referencia.each do |a| -%>
-  belongs_to :<%= a.nombre %>
-<%- end -%>
-  default_scope -> { where{es_activo.eq true}<%= ".order('#{@plural}.orden')" if @con_orden %> }
+class <%= @name.classify %> < ActiveRecord::Base
 
+  ##############################################################################
+  #### CONFIGURACIONES Y RELACIONES
+  ##############################################################################
+<% if options.sluggable? %>
+  extend FriendlyId
+  friendly_id <%= ":#{@identificador}" if @identificador != "nombre" %>
+<% end %>
+  attr_accessible <%= @atributos.map { |a| ":#{a.nombre}" }.join(", ") %>
+<% atributos_con_referencia.each do |a| %>
+  belongs_to :<%= a.nombre %>
+<% end %>
+<% if options.archivable? %>
+  has_many :archivos, :as => :propietario, :dependent => :destroy
+  has_many :fotos, :as => :propietario
+  has_many :adjuntos, :as => :propietario
+  has_many :videos, :as => :propietario
+  accepts_nested_attributes_for :fotos, :adjuntos, :videos
+<% end %>
+  ##############################################################################
+  #### SCOPES Y VALIDACIONES
+  ##############################################################################
+<% if options.ordenable? %>
+  default_scope -> { order{orden} }
+<% else %>
+  default_scope -> { order{<%= @identificador %>} }
+<% end %>
+  ##############################################################################
+  #### MÉTODOS PÚBLICOS
+  ##############################################################################
+<% if options.archivable? %>
+  def carpeta
+    File.join Rails.env, self.class.name.tableize, id.to_s
+  end
+<% end %>
   def se_puede_eliminar?
     true
   end
-  
+
   def destroy
-    if se_puede_eliminar?
-      run_callbacks :destroy do
-        update_attribute :es_activo, false
-      end
-    end
+    super if se_puede_eliminar?
   end
 
+  ##############################################################################
+  #### ALIAS E IMPRESIONES
+  ##############################################################################
+
+  alias_attribute :to_label, :<%= @identificador %>
   alias_attribute :to_s, :<%= @identificador %>
+
+  ##############################################################################
+  #### MÉTODOS PRIVADOS
+  ##############################################################################
+
+  private
+
 end

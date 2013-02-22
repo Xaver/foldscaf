@@ -1,18 +1,19 @@
-Description:
+Descripción:
     Generador Scaffold-Like adaptado a las necesidades de Xaver.
 
-Example:
-    rails generate fold Thing
+Ejemplo:
+    rails generate fold recurso nombre descripcion contenido:text es_destacado:boolean:true
 
-    This will create:
-        app/controllers/admin/things_controller.rb
-        app/models/thing.rb
-        app/helpers/thing_helper.rb
+    Esto generará:
+        app/models/recurso
+        db/migration/<<fecha>>_create_recursos.rb
 
-        app/views/admin/_form.rb
-        app/views/admin/_mini_form.rb
-        app/views/admin/_thing.rb
-        app/views/admin/edit.rb
-        app/views/admin/index.rb
-        app/views/admin/show.rb
+        app/controllers/recursos_controller.rb
+        app/controllers/admin/recursos_controller.rb
 
+        app/views/admin/_form.html.erb
+        app/views/admin/_mini_form.html.erb
+        app/views/admin/_recurso.html.erb
+        app/views/admin/edit.html.erb
+        app/views/admin/new.html.erb
+        app/views/admin/index.html.erb
