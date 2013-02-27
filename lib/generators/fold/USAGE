@@ -17,3 +17,7 @@ Ejemplo:
         app/views/admin/edit.html.erb
         app/views/admin/new.html.erb
         app/views/admin/index.html.erb
+
+    Se pueden utilizar muchas opciones. Por ejemplo:
+    
+    rails generate fold recurso nombre:index categoria:string{100}:uniq contenido:text precio:decimal{15.2} -O -A -S

@@ -1,8 +1,11 @@
 <div class="page-header">
   <nav class="pull-right">
-    <%%= link_to icono('arrow-left', :blanco) + ' Volver', <%= @plural_path %>, :class => 'btn btn-primary btn-large' %>
+    <%%= boton_volver <%= class_name %> %>
   </nav>
-  <h1>Editar <%= @class %></h1>
+  <h1>
+    <%= plural_name.humanize %>
+    <small><%%= @<%= singular_table_name %>.to_label %></small>
+  </h1>
 </div>
 
-<%%= render "form", :<%= @singular %> => @<%= @singular %>, :url => <%=  @singular_path %>(@<%= @singular %>), :remote => false %>
+<%%= render "form", :<%= singular_table_name %> => @<%= singular_table_name %> %>

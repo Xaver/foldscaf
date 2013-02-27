@@ -1,13 +1,8 @@
 <div class="page-header">
   <nav class="pull-right">
-    <%%= link_to icono('arrow-left', :blanco) + ' Volver', <%= @plural_path %>, :class => 'btn btn-primary btn-large' %>
+    <%%= boton_volver <%= class_name %> %>
   </nav>
-  <h1>Agregar <%= @class %>
+  <h1><%= plural_name.humanize %></h1>
 </div>
 
-<%%= content_tag :table, :id => nombre_tabla(<%= @class %>), :class => [:table, :"table-striped", :ordenable] do %>
-  <%%= thead :<%= @identificador %> %>
-  <%%= content_tag :tbody, render(@<%= @plural %>) %>
-<%% end %>
-
-<%%= render "form", :<%= @singular %> => @<%= @singular %>, :url => <%=  @plural_path %>, :remote => true %>
+<%%= render "form", :<%= singular_table_name %> => @<%= singular_table_name %> %>

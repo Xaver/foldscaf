@@ -1,22 +1,15 @@
 <div class="page-header">
   <nav class="pull-right">
-    <%%= link_to icono('plus', :blanco) + " Agregar <%= @singular %>", <%= @new_path %>, :class => 'btn btn-primary btn-large' %>
+    <%%= boton_new <%= class_name %> %>
   </nav>
-  <h1><%= @classes %></h1>
+  <h1><%= plural_name.humanize %></h1>
 </div>
 
-<%%= simple_form_for @q, :as => :q, :url => <%= @plural_path %>, :method => :get do |f| %>
-  <%%= f.input :<%= @identificador %>_contains, :placeholder => '<%= @identificador.humanize %>', :required => false, :autofocus => true %>
-  <%%= f.button :submit, "Buscar", :name => nil, :disable_with => t("espere"), :class => 'btn btn-primary' %>
-<%% end %>
-
-<%%= paginate @<%= @plural %>, :theme => :bootstrap %>
-
-<%%= content_tag :table, :id => nombre_tabla(<%= @class %>), :class => [:table, :"table-striped", :ordenable] do %>
-  <%%= thead :<%= @identificador %> %>
-  <%%= content_tag :tbody, render(@<%= @plural %>) %>
-<%% end %>
-
-<%- if @con_orden -%>
-<%%= hidden_field_tag :url, <%= @reordenar_path %>, :class => :url %>
+<%%= content_tag :table, :id => nombre_tabla(<%= class_name %>), :class => [:table, :"table-striped"<%= ", :ordenable" if options.ordenable? %>] do %>
+  <%%= thead <%= attributes.first(3).map{ |a| ":#{a.name}" }.join(", ") %> %>
+  <%%= content_tag :tbody, render(@<%= plural_table_name %>) %>
+<%- if options.ordenable? -%>
+  <%%= hidden_field_tag :url, <%= @paths[:reordenar] %>, :class => :url %>
 <%- end -%>
+<%% end %>
+<%%= paginate @<%= plural_table_name %>, :theme => :bootstrap %>

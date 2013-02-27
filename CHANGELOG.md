@@ -1,5 +1,6 @@
 ## v2.0.0.beta
 * Refactorización general.
+* Archivos
 
 ## v1.0.6
 * Fix. Index no usa wrapper mini

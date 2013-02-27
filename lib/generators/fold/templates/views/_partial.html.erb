@@ -1,0 +1,6 @@
+<%%= tr_for <%= singular_table_name %> do %>
+<%- for atributo in attributes.first(3) -%>
+  <td><%%= <%= "number_to_currency " if atributo.name =~ /precio/ %><%= singular_table_name %>.<%= atributo.name %> %></td>
+<%- end -%>
+  <td><%%= acciones <%= ":mover => boton_mover(#{class_name}), " if options.ordenable? %><%= ":archivos => boton_archivos(#{singular_table_name}), " if options.archivable? %>:editar => boton_editar(<%= singular_table_name %>), :eliminar => boton_eliminar(<%= singular_table_name %>) %></td>
+<%% end %>

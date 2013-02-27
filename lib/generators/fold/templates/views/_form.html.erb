@@ -1,9 +1,9 @@
-<%%= simple_form_for <%= @singular %>, :url => url, :remote => remote, :html => { :class => 'form-horizontal' } do |f| %>
-<%- @atributos.each do |a| -%>
-  <%%= f.<%= a.clase == :references ? :association : :input %> :<%= a.nombre %> %>
+<%%= simple_form_for <%= singular_table_name %>, :url => [:admin, <%= singular_table_name %>], :html => { :class => 'form-horizontal' }, :defaults => { :input_html => { :class => 'input-xlarge' } } do |f| %>
+<%- for atributo in attributes -%>
+  <%%= f.<%= atributo.reference? ? :association : :input %> :<%= atributo.name %> %>
 <%- end -%>
 
-  <div class="controls">
+  <div class="form-actions">
     <%%= f.button :submit, :name => nil, :data => { :disable_with => t('espere') }, :class => 'btn btn-primary' %>
   </div>
 <%% end %>

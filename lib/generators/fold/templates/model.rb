@@ -1,16 +1,18 @@
-# -*- encoding : utf-8 -*-
-class <%= @name.classify %> < ActiveRecord::Base
+<% module_namespacing do -%>
+class <%= class_name %> < <%= parent_class_name.classify %>
 
   ##############################################################################
   #### CONFIGURACIONES Y RELACIONES
   ##############################################################################
 <% if options.sluggable? %>
   extend FriendlyId
-  friendly_id <%= ":#{@identificador}" if @identificador != "nombre" %>
+  friendly_id <%= ":#{attributes.first.name}" if attributes.first.name != "nombre" %>
 <% end %>
-  attr_accessible <%= @atributos.map { |a| ":#{a.nombre}" }.join(", ") %>
-<% atributos_con_referencia.each do |a| %>
-  belongs_to :<%= a.nombre %>
+<% if accessible_attributes.any? %>
+  attr_accessible <%= accessible_attributes.map {|attribute| ":#{attribute.name}" }.sort.join(', ') %>
+<% end %>
+<% attributes.select(&:reference?).each do |attribute| %>
+  belongs_to :<%= attribute.name %>
 <% end %>
 <% if options.archivable? %>
   has_many :archivos, :as => :propietario, :dependent => :destroy
@@ -25,7 +27,7 @@ class <%= @name.classify %> < ActiveRecord::Base
 <% if options.ordenable? %>
   default_scope -> { order{orden} }
 <% else %>
-  default_scope -> { order{<%= @identificador %>} }
+  default_scope -> { order{<%= attributes.first.name %>} }
 <% end %>
   ##############################################################################
   #### MÉTODOS PÚBLICOS
@@ -47,8 +49,8 @@ class <%= @name.classify %> < ActiveRecord::Base
   #### ALIAS E IMPRESIONES
   ##############################################################################
 
-  alias_attribute :to_label, :<%= @identificador %>
-  alias_attribute :to_s, :<%= @identificador %>
+  alias_attribute :to_label, :<%= attributes.first.name %>
+  alias_attribute :to_s, :<%= attributes.first.name %>
 
   ##############################################################################
   #### MÉTODOS PRIVADOS
@@ -57,3 +59,4 @@ class <%= @name.classify %> < ActiveRecord::Base
   private
 
 end
+<% end -%>
