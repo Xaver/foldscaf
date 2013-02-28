@@ -52,7 +52,7 @@ class FoldGenerator < ActiveRecord::Generators::Base
     if options.padre?
       [namespace.to_s.camelize, options[:padre].pluralize.camelize + "Controller"].compact.join("::")
     elsif namespace.present?
-      [namespace.to_s.camelize, namespace.to_s.pluralize.camelize + "Controller"].join("::")
+      [namespace.to_s.camelize, namespace.to_s.camelize + "Controller"].join("::")
     else
       "ApplicationController"
     end
