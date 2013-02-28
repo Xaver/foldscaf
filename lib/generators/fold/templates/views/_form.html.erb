@@ -1,6 +1,6 @@
 <%%= simple_form_for <%= singular_table_name %>, :url => [:admin, <%= singular_table_name %>], :html => { :class => 'form-horizontal' }, :defaults => { :input_html => { :class => 'input-xlarge' } } do |f| %>
-<%- for atributo in attributes -%>
-  <%%= f.<%= atributo.reference? ? :association : :input %> :<%= atributo.name %> %>
+<%- attributes.each_with_index do |atributo, i| -%>
+  <%%= f.<%= atributo.reference? ? :association : :input %> :<%= atributo.name %><%= ", :autofocus => true" if i.zero? %> %>
 <%- end -%>
 
   <div class="form-actions">

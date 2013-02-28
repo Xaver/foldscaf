@@ -9,7 +9,7 @@
   <%%= thead <%= attributes.first(3).map{ |a| ":#{a.name}" }.join(", ") %> %>
   <%%= content_tag :tbody, render(@<%= plural_table_name %>) %>
 <%- if options.ordenable? -%>
-  <%%= hidden_field_tag :url, <%= @paths[:reordenar] %>, :class => :url %>
+  <%%= hidden_field_tag :url, url_for(<%= @paths[:reordenar] %>), :class => :url %>
 <%- end -%>
 <%% end %>
 <%%= paginate @<%= plural_table_name %>, :theme => :bootstrap %>

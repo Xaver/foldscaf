@@ -15,7 +15,7 @@ class Admin::<%= controller_class_name %>Controller < <%= parent_controller_name
   def index
     # @q = <%= singular_table_name.camelize %>.search params[:q]
     # @<%= plural_table_name %> = @q.relation.page(params[:page]).per(50)
-    @<%= plural_table_name%> = <%= singular_table_name.camelize %>.page(params[:page).per(50)
+    @<%= plural_table_name%> = <%= singular_table_name.camelize %>.page(params[:page]).per(50)
   end
 
   def new

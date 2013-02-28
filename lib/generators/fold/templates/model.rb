@@ -7,13 +7,13 @@ class <%= class_name %> < <%= parent_class_name.classify %>
 <% if options.sluggable? %>
   extend FriendlyId
   friendly_id <%= ":#{attributes.first.name}" if attributes.first.name != "nombre" %>
-<% end %>
-<% if accessible_attributes.any? %>
-  attr_accessible <%= accessible_attributes.map {|attribute| ":#{attribute.name}" }.sort.join(', ') %>
-<% end %>
-<% attributes.select(&:reference?).each do |attribute| %>
+<%- end -%>
+<% if attributes.any? %>
+  attr_accessible <%= attributes.map { |a| ":#{a.name}#{"_id" if a.reference?}" }.join(', ') %>
+<%- end -%>
+<% reference_attributes.each do |attribute| %>
   belongs_to :<%= attribute.name %>
-<% end %>
+<%- end -%>
 <% if options.archivable? %>
   has_many :archivos, :as => :propietario, :dependent => :destroy
   has_many :fotos, :as => :propietario

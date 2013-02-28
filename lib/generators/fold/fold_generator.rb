@@ -11,7 +11,7 @@ class FoldGenerator < ActiveRecord::Generators::Base
 
   check_class_collision
 
-  argument :attributes, :type => :array, :default => [], :banner => "nombre descripcion contenido:text es_destacado:boolean:index precio:decimal{15.2}"
+  argument :attributes, :type => :array, :required => true, :banner => "nombre descripcion contenido:text es_destacado:boolean:index precio:decimal{15.2}"
 
   class_option :ordenable, :desc => 'el modelo se puede reordenar', :type => :boolean, :aliases => "-O", :default => false
   class_option :archivable, :desc => 'el modelo tiene archivos', :type => :boolean, :aliases => "-A", :default => false
@@ -30,14 +30,18 @@ class FoldGenerator < ActiveRecord::Generators::Base
     aplicar_rutas
   end
 
+  def navegacion
+    insert_into_file "app/views/admin/admin/_nav_lateral.html.erb", "\n<li><%= link_to '#{plural_name.humanize}', #{@paths[:index]} if can? :index, #{class_name} %></li>", :after => '<li class="nav-header">General</li>'
+  end
+
   private
 
   def attributes_with_index
     attributes.select { |a| a.has_index? || a.reference? }
   end
 
-  def accessible_attributes
-    attributes.reject &:reference?
+  def reference_attributes
+    attributes.select &:reference?
   end
 
   def parent_class_name
