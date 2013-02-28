@@ -31,7 +31,7 @@ class FoldGenerator < ActiveRecord::Generators::Base
   end
 
   def navegacion
-    insert_into_file "app/views/admin/admin/_nav_lateral.html.erb", "\n<li><%= link_to '#{plural_name.humanize}', #{@paths[:index]} if can? :index, #{class_name} %></li>", :after => '<li class="nav-header">General</li>'
+    insert_into_file "app/views/admin/admin/_nav_lateral.html.erb", "\n    <li><%= link_to '#{plural_name.humanize}', #{@paths[:index]} if can? :index, #{class_name} %></li>", :after => '<li class="nav-header">General</li>'
   end
 
   private
@@ -50,10 +50,9 @@ class FoldGenerator < ActiveRecord::Generators::Base
 
   def parent_controller_name(namespace = nil)
     if options.padre?
-      [namespace.to_s, options[:padre].camelize + "Controller"].compact.join("::")
+      [namespace.to_s.camelize, options[:padre].pluralize.camelize + "Controller"].compact.join("::")
     elsif namespace.present?
-      [namespace.to_s, namespace.to_s.camelize + "Controller"].join("::")
-      "Admin::AdminController"
+      [namespace.to_s.camelize, namespace.to_s.pluralize.camelize + "Controller"].join("::")
     else
       "ApplicationController"
     end
