@@ -1,3 +1,7 @@
+## v2.0.0.beta1
+* Minor fixes.
+* Helpers.
+
 ## v2.0.0.beta
 * Refactorización general.
 * Archivos
