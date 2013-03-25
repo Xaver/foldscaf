@@ -1,8 +1,14 @@
 class <%= migration_class_name %> < ActiveRecord::Migration
   def change
     create_table :<%= table_name %> do |t|
-<% attributes.each do |attribute| -%>
+<% estandar_attributes.each do |attribute| -%>
       t.<%= attribute.type %> :<%= attribute.name %><%= attribute.inject_options %>
+<% end -%>
+<% imagen_attributes.each do |attribute| -%>
+      t.string :<%= attribute.name %>_uid, :<%= attribute.name %>_name
+<% end -%>
+<% reference_attributes.each do |attribute| -%>
+      t.references :<%= attribute.name %><%= attribute.inject_options %>
 <% end -%>
 
 <% if options.ordenable? %>

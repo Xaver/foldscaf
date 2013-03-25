@@ -1,4 +1,9 @@
-## v2.0.0.beta1
+## v2.0.0.rc2
+* Minor fixes.
+* Tipo :imagen. Agrega todo lo necesario para hacer que ese atributo sea una imagen.
+* Opción -R: Crea un archivo cargar_modelo.rake en lib/tasks con el formato predeterminado de los rakes.
+
+## v2.0.0.rc1
 * Minor fixes.
 * Helpers.
 

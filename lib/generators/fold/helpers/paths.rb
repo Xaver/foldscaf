@@ -25,6 +25,10 @@ module Fold
       File.join 'app/views', namespace.to_s, class_path, table_name, "#{action}.erb"
     end
 
+    def rake_path(filename)
+      File.join 'lib/tasks', "#{filename}.rake"
+    end
+
     private
 
     def fecha

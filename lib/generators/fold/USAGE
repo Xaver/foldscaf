@@ -2,7 +2,7 @@ Descripción:
     Generador Scaffold-Like adaptado a las necesidades de Xaver.
 
 Ejemplo:
-    rails generate fold recurso nombre descripcion contenido:text es_destacado:boolean:true
+    rails generate fold recurso nombre descripcion contenido:text es_destacado:boolean:true banner:imagen
 
     Esto generará:
         app/models/recurso
@@ -18,6 +18,8 @@ Ejemplo:
         app/views/admin/new.html.erb
         app/views/admin/index.html.erb
 
+        lib/tasks/cargar_recursos.html
+
     Se pueden utilizar muchas opciones. Por ejemplo:
-    
-    rails generate fold recurso nombre:index categoria:string{100}:uniq contenido:text precio:decimal{15.2} -O -A -S
+
+    rails generate fold recurso nombre:index categoria:string{100}:uniq contenido:text precio:decimal{15.2} banner:imagen -O -A -S -R

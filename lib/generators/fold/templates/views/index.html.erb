@@ -5,8 +5,8 @@
   <h1><%= plural_name.humanize %></h1>
 </div>
 
-<%%= content_tag :table, :id => nombre_tabla(<%= class_name %>), :class => [:table, :"table-striped"<%= ", :ordenable" if options.ordenable? %>] do %>
-  <%%= thead <%= attributes.first(3).map{ |a| ":#{a.name}" }.join(", ") %> %>
+<%%= content_tag :table, :id => nombre_tabla(<%= class_name %>), :class => ["table", "table-condensed", "table-hover"<%= ", :ordenable" if options.ordenable? %>] do %>
+  <%%= thead <%= listable_attributes.first(3).map{ |a| ":#{a.name}" }.join(", ") %> %>
   <%%= content_tag :tbody, render(@<%= plural_table_name %>) %>
 <%- if options.ordenable? -%>
   <%%= hidden_field_tag :url, url_for(<%= @paths[:reordenar] %>), :class => :url %>

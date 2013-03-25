@@ -6,6 +6,7 @@ module Fold
       !options.padre? ? migrations : puts("Recuerde que debe agregar la columna :type a la tabla :#{options[:padre].tableize}")
       controllers
       views
+      rake if options.rake?
     end
 
     private
@@ -29,6 +30,10 @@ module Fold
         template File.join('views', "#{action}.erb"), view_path(action, :admin)
       end
       template "views/_partial.html.erb", view_path("_#{file_name}.html", :admin)
+    end
+
+    def rake
+      template 'rake.rake', rake_path("cargar_#{table_name}")
     end
 
   end
